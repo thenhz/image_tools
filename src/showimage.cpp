@@ -218,7 +218,7 @@ private:
   rmw_qos_reliability_policy_t reliability_policy_ = rmw_qos_profile_default.reliability;
   rmw_qos_history_policy_t history_policy_ = rmw_qos_profile_default.history;
   bool show_image_ = true;
-  std::string topic_ = "/image/image_raw";
+  std::string topic_ = "image/segmented";
 };
 
 }  // namespace image_tools

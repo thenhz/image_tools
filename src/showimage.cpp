@@ -80,6 +80,7 @@ private:
         process_image(msg, show_image_, this->get_logger());
       };
 
+    this->get_parameter("topic_name", topic_);
     RCLCPP_INFO(this->get_logger(), "Subscribing to topic '%s'", topic_.c_str());
     sub_ = create_subscription<sensor_msgs::msg::Image>(topic_, qos, callback);
   }
@@ -93,7 +94,7 @@ private:
       std::stringstream ss;
       ss << "Usage: showimage [-h] [--ros-args [-p param:=value] ...]" << std::endl;
       ss << "Subscribe to an image topic and show the images." << std::endl;
-      ss << "Example: ros2 run image_tools showimage --ros-args -p reliability:=best_effort";
+      ss << "Example: ros2 run image_tools showimage --ros-args -p reliability:=best_effort -p \"topic_name:=image/image_raw\"";
       ss << std::endl << std::endl;
       ss << "Options:" << std::endl;
       ss << "  -h, --help\tDisplay this help message and exit";
@@ -156,6 +157,7 @@ private:
     // Declare and get remaining parameters
     depth_ = this->declare_parameter("depth", 10);
     show_image_ = this->declare_parameter("show_image", true);
+    topic_ = this->declare_parameter("topic_name","image/segmented");
   }
 
   /// Convert a sensor_msgs::Image encoding type (stored as a string) to an OpenCV encoding type.
@@ -218,7 +220,7 @@ private:
   rmw_qos_reliability_policy_t reliability_policy_ = rmw_qos_profile_default.reliability;
   rmw_qos_history_policy_t history_policy_ = rmw_qos_profile_default.history;
   bool show_image_ = true;
-  std::string topic_ = "image/segmented";
+  std::string topic_;
 };
 
 }  // namespace image_tools

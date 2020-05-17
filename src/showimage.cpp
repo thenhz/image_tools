@@ -193,8 +193,8 @@ private:
   void process_image(
     const sensor_msgs::msg::Image::SharedPtr msg, bool show_image, rclcpp::Logger logger)
   {
-    RCLCPP_INFO(logger, "Received image #%s", msg->header.frame_id.c_str());
-    std::cerr << "Received image #" << msg->header.frame_id.c_str() << std::endl;
+    RCLCPP_DEBUG(logger, "Received image #%s", msg->header.frame_id.c_str());
+    // std::cerr << "Received image #" << msg->header.frame_id.c_str() << std::endl;
 
     if (show_image) {
       // Convert to an OpenCV matrix by assigning the data.
